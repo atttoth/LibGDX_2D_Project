@@ -72,6 +72,9 @@ public class Application extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
 			horizontalForce += 1;
 		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			player.applyForceToCenter(0,300,false);
+		}
 
 		player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
 	}

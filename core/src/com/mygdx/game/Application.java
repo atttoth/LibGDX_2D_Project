@@ -17,7 +17,7 @@ public class Application extends ApplicationAdapter {
 
 	private Box2DDebugRenderer b2dr;
 	private World world;
-	private Body player;
+	private Body player, platform;
 	
 	@Override
 	public void create () {
@@ -30,9 +30,8 @@ public class Application extends ApplicationAdapter {
 		world = new World(new Vector2(0,-9.8f), false);
 		b2dr = new Box2DDebugRenderer();
 
-		player = createPlayer();
-
-
+		player = createBox(8,10,32,32,false);
+		platform = createBox(0,0,64,32,true);
 	}
 
 	@Override
@@ -72,16 +71,21 @@ public class Application extends ApplicationAdapter {
 		orthographicCamera.update();
 	}
 
-	public Body createPlayer() {
+	public Body createBox(int xPosition, int yPosition, int width, int height, boolean isStatic) {
 		Body playerBody;
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(0,0);
+
+		if(isStatic) {
+			bodyDef.type = BodyDef.BodyType.StaticBody;
+		} else {
+			bodyDef.type = BodyDef.BodyType.DynamicBody;
+		}
+		bodyDef.position.set(xPosition / PPM, yPosition / PPM);
 		bodyDef.fixedRotation = true;
 		playerBody = world.createBody(bodyDef);
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox((float)32 / 2 / PPM, (float)32 / 2 / PPM);
+		shape.setAsBox((float)width / 2 / PPM, (float)height / 2 / PPM);
 
 		playerBody.createFixture(shape, 1.0f);
 		shape.dispose();

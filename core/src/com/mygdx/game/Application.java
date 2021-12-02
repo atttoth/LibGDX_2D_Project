@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -21,13 +24,16 @@ public class Application extends ApplicationAdapter {
 
 	private OrthographicCamera orthographicCamera;
 
+	private OrthogonalTiledMapRenderer tmr;
+	private TiledMap map;
+
 	private Box2DDebugRenderer b2dr;
 	private World world;
 	private Body player, platform;
 
 	private SpriteBatch batch;
 	private Texture texture;
-	
+
 	@Override
 	public void create () {
 		float width = Gdx.graphics.getWidth();
@@ -36,14 +42,19 @@ public class Application extends ApplicationAdapter {
 		orthographicCamera = new OrthographicCamera();
 		orthographicCamera.setToOrtho(false, width / SCALE,height / SCALE);
 
-		world = new World(new Vector2(0,-9.8f), false);
+		world = new World(new Vector2(0,0), false); // default-gravity: -9.8f
 		b2dr = new Box2DDebugRenderer();
 
-		player = createBox(8,10,32,32,false);
-		platform = createBox(0,0,64,32,true);
+		player = createBox(64,64,32,32,false);
+		//platform = createBox(0,20,64,32,true);
 
 		batch = new SpriteBatch();
 		texture = new Texture("character_roundRed.png");
+
+		map = new TmxMapLoader().load("map.tmx");
+		tmr = new OrthogonalTiledMapRenderer(map);
+
+		TiledObjectUtil.parseTiledObjectLayer(world,map.getLayers().get("collision").getObjects());
 	}
 
 	@Override
@@ -57,6 +68,8 @@ public class Application extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(texture, player.getPosition().x * PPM - texture.getWidth() / 2,player.getPosition().y * PPM - texture.getHeight() / 2);
 		batch.end();
+
+		tmr.render();
 
 		b2dr.render(world,orthographicCamera.combined.scl(PPM));
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -74,6 +87,9 @@ public class Application extends ApplicationAdapter {
 		world.dispose();
 		b2dr.dispose();
 		batch.dispose();
+		texture.dispose();
+		tmr.dispose();
+		map.dispose();
 	}
 
 	public void update(float deltaTime) {
@@ -81,22 +97,31 @@ public class Application extends ApplicationAdapter {
 
 		inputUpdate(deltaTime);
 		cameraUpdate(deltaTime);
+		tmr.setView(orthographicCamera);
 		batch.setProjectionMatrix(orthographicCamera.combined);
 	}
 
 	public void inputUpdate(float deltaTime) {
 		int horizontalForce = 0;
+		int verticalForce = 0;
+
 		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
 			horizontalForce -= 1;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
 			horizontalForce += 1;
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+			verticalForce -= 1;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+			verticalForce += 1;
+		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			player.applyForceToCenter(0,300,false);
 		}
 
-		player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+		player.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 	}
 
 	public void cameraUpdate(float deltaTime) {

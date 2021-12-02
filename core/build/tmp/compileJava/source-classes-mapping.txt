@@ -1,4 +1,6 @@
 com/mygdx/game/Constants.java
  com.mygdx.game.Constants
+com/mygdx/game/TiledObjectUtil.java
+ com.mygdx.game.TiledObjectUtil
 com/mygdx/game/Application.java
  com.mygdx.game.Application

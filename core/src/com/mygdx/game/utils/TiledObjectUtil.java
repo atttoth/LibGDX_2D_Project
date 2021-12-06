@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.utils;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-import static com.mygdx.game.Constants.TILE_SIZE;
+import static com.mygdx.game.utils.Constants.TILE_SIZE;
 
 public class TiledObjectUtil {
     public static void parseTiledObjectLayer(World world, MapObjects mapObjects) {

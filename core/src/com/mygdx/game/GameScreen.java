@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 
-import static com.mygdx.game.Constants.*;
+import static com.mygdx.game.utils.Constants.*;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -27,7 +27,7 @@ public class GameScreen extends ScreenAdapter {
     private Body player;
     private Texture texture;
 
-    private OrthogonalTiledMapRenderer tmr;
+    private OrthogonalTiledMapRenderer renderer;
 
     public GameScreen(SpriteBatch batch) {
         this.batch = batch;
@@ -50,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         texture = new Texture("character_roundRed.png");
 
         levelMap = new LevelMap();
-        tmr = new OrthogonalTiledMapRenderer(levelMap);
+        renderer = new OrthogonalTiledMapRenderer(levelMap);
     }
 
     @Override
@@ -60,12 +60,11 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.begin();
-        levelMap.drawGround(batch);
-        batch.draw(texture, player.getPosition().x * TILE_SIZE - texture.getWidth() / 2,player.getPosition().y * TILE_SIZE - texture.getHeight() / 2);
-        batch.end();
+        renderer.render();
 
-        tmr.render();
+        batch.begin();
+        batch.draw(texture, player.getPosition().x * TILE_SIZE - (float)texture.getWidth() / 2,player.getPosition().y * TILE_SIZE - (float)texture.getHeight() / 2);
+        batch.end();
 
         b2dr.render(world,orthographicCamera.combined.scl(TILE_SIZE));
     }
@@ -85,7 +84,7 @@ public class GameScreen extends ScreenAdapter {
 
         inputUpdate(deltaTime);
         cameraUpdate(deltaTime);
-        tmr.setView(orthographicCamera);
+        renderer.setView(orthographicCamera);
         batch.setProjectionMatrix(orthographicCamera.combined);
     }
 
@@ -105,9 +104,9 @@ public class GameScreen extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             verticalForce += 1;
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+      /*  if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             player.applyForceToCenter(0,300,false);
-        }
+        } */
 
         player.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
     }

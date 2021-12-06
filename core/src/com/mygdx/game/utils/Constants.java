@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.utils;
 
 public class Constants {
     public static final float SCALE = 2.0f;

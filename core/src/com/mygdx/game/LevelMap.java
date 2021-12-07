@@ -30,10 +30,12 @@ public class LevelMap extends TiledMap {
                 int num = random.nextInt(10);
                 Cell cell = new Cell();
 
-                if(num < 7) {
+                if(num > 7) {
                     cell.setTile(Tile.brick);
                     tileLayer.setCell(row,col,cell);
                 } else {
+                    cell.setTile(Tile.grass);
+                    tileLayer.setCell(row,col,cell);
                 }
             }
         }

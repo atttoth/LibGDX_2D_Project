@@ -16,7 +16,7 @@ public class LevelMap extends TiledMap {
     private TiledMapTileLayer tileLayer;
 
     public LevelMap() {
-        tileLayer = new TiledMapTileLayer(WORLD_SIZE,WORLD_SIZE,TILE_SIZE,TILE_SIZE);
+        tileLayer = new TiledMapTileLayer(WORLD_SIZE, WORLD_SIZE, TILE_SIZE, TILE_SIZE);
         map = new int[WORLD_SIZE][WORLD_SIZE];
         generateMap(map);
     }
@@ -30,12 +30,15 @@ public class LevelMap extends TiledMap {
                 int num = random.nextInt(10);
                 Cell cell = new Cell();
 
-                if(num > 7) {
+                if (row == 0 || row == map.length - 1 || col == 0 || col == map.length - 1) {
+                    cell.setTile(Tile.frame);
+                    tileLayer.setCell(row, col, cell);
+                } else if (num > 7) {
                     cell.setTile(Tile.brick);
-                    tileLayer.setCell(row,col,cell);
+                    tileLayer.setCell(row, col, cell);
                 } else {
                     cell.setTile(Tile.grass);
-                    tileLayer.setCell(row,col,cell);
+                    tileLayer.setCell(row, col, cell);
                 }
             }
         }

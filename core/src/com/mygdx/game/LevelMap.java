@@ -34,9 +34,12 @@ public class LevelMap extends TiledMap {
                     cell.setTile(Tile.frame);
                     tileLayer.setCell(row, col, cell);
                 } else if (num > 7) {
-                    cell.setTile(Tile.brick);
+                    cell.setTile(Tile.dirt);
                     tileLayer.setCell(row, col, cell);
-                } else {
+                } else if(num == 5) {
+                    cell.setTile(Tile.stone);
+                    tileLayer.setCell(row, col, cell);
+                }else {
                     cell.setTile(Tile.grass);
                     tileLayer.setCell(row, col, cell);
                 }

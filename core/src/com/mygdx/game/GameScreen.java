@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -26,8 +25,6 @@ public class GameScreen extends ScreenAdapter {
 
     private Body player;
     private Texture texture;
-
-    private OrthogonalTiledMapRenderer renderer;
 
     public GameScreen(SpriteBatch batch) {
         this.batch = batch;
@@ -50,7 +47,6 @@ public class GameScreen extends ScreenAdapter {
         texture = new Texture("character_roundRed.png");
 
         levelMap = new LevelMap();
-        renderer = new OrthogonalTiledMapRenderer(levelMap);
     }
 
     @Override
@@ -60,9 +56,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.render();
-
         batch.begin();
+        levelMap.drawGround(batch);
         batch.draw(texture, player.getPosition().x * TILE_SIZE - (float)texture.getWidth() / 2,player.getPosition().y * TILE_SIZE - (float)texture.getHeight() / 2);
         batch.end();
 
@@ -84,7 +79,6 @@ public class GameScreen extends ScreenAdapter {
 
         inputUpdate(deltaTime);
         cameraUpdate(deltaTime);
-        renderer.setView(orthographicCamera);
         batch.setProjectionMatrix(orthographicCamera.combined);
     }
 

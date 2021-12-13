@@ -8,6 +8,8 @@ import com.mygdx.game.Tile;
 public class Frame extends Tile {
 
     public Frame() {
-        super(new TextureRegion(new Texture(Gdx.files.internal("frame.png"))));
+
     }
+
+
 }

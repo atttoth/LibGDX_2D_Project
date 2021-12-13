@@ -7,7 +7,8 @@ import com.mygdx.game.Tile;
 
 public class Grass extends Tile {
 
+
     public Grass() {
-        super(new TextureRegion(new Texture(Gdx.files.internal("grass.png"))));
     }
+
 }

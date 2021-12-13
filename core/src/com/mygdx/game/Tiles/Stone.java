@@ -8,6 +8,8 @@ import com.mygdx.game.Tile;
 public class Stone extends Tile {
 
     public Stone() {
-        super(new TextureRegion(new Texture(Gdx.files.internal("stone.png"))));
+
     }
+
+
 }

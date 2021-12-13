@@ -2,12 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.mygdx.game.Tiles.Dirt;
-import com.mygdx.game.Tiles.Stone;
-import com.mygdx.game.Tiles.Frame;
-import com.mygdx.game.Tiles.Grass;
+
 
 public class Tile {
     private Texture frame;

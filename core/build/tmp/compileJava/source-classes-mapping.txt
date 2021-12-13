@@ -2,19 +2,11 @@ com/mygdx/game/utils/Constants.java
  com.mygdx.game.utils.Constants
 com/mygdx/game/Application.java
  com.mygdx.game.Application
-com/mygdx/game/Tiles/Stone.java
- com.mygdx.game.Tiles.Stone
-com/mygdx/game/Tile.java
- com.mygdx.game.Tile
-com/mygdx/game/Tiles/Grass.java
- com.mygdx.game.Tiles.Grass
-com/mygdx/game/Tiles/Frame.java
- com.mygdx.game.Tiles.Frame
 com/mygdx/game/utils/TiledObjectUtil.java
  com.mygdx.game.utils.TiledObjectUtil
-com/mygdx/game/Tiles/Dirt.java
- com.mygdx.game.Tiles.Dirt
-com/mygdx/game/GameScreen.java
- com.mygdx.game.GameScreen
+com/mygdx/game/Tile.java
+ com.mygdx.game.Tile
 com/mygdx/game/LevelMap.java
  com.mygdx.game.LevelMap
+com/mygdx/game/GameScreen.java
+ com.mygdx.game.GameScreen

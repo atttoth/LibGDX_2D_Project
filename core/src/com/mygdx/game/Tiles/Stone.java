@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Tile;
 
-public class Brick extends Tile {
+public class Stone extends Tile {
 
-    public Brick() {
-        super(new TextureRegion(new Texture(Gdx.files.internal("brick.png"))));
+    public Stone() {
+        super(new TextureRegion(new Texture(Gdx.files.internal("stone.png"))));
     }
 }

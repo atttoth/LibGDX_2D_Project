@@ -50,6 +50,12 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void inputUpdate(float delta) {
+        if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_SUBTRACT)) {
+            orthographicCamera.zoom += 0.01f;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_ADD)) {
+            orthographicCamera.zoom -= 0.01f;
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             orthographicCamera.position.x -= 5;
         }
